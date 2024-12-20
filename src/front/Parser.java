@@ -374,7 +374,8 @@ public class Parser {
     public static CompileUnit parseAddExp(TokenPackage tokenPackage) {
         List<CompileUnit> childUnit = new ArrayList<>();
         childUnit.add(parseMulExp(tokenPackage));
-        while (tokenPackage.getCurToken().type() == Token.Type.PLUS || tokenPackage.getCurToken().type() == Token.Type.MINU) {
+        while (tokenPackage.getCurToken().type() == Token.Type.PLUS || tokenPackage.getCurToken().type() == Token.Type.MINU
+            || tokenPackage.getCurToken().type() == Token.Type.MATPLUS || tokenPackage.getCurToken().type() == Token.Type.MATMINU)  {
             //            childUnit.add(new CompileUnit("AddExp", new ArrayList<>(), CompileUnit.Type.AddExp, false));
             //            childUnit.add(endUnitBuilder(tokenPackage, tokenPackage.getCurToken().type()));
             //            childUnit.add(parseMulExp(tokenPackage));
@@ -474,13 +475,15 @@ public class Parser {
         childUnit.add(parseUnaryExp(tokenPackage));
         while (tokenPackage.getCurToken().type() == Token.Type.MULT ||
                 tokenPackage.getCurToken().type() == Token.Type.DIV ||
-                tokenPackage.getCurToken().type() == Token.Type.MOD) {
+                tokenPackage.getCurToken().type() == Token.Type.MOD ||
+                tokenPackage.getCurToken().type() == Token.Type.MATMULT ||
+                tokenPackage.getCurToken().type() == Token.Type.MATDOTMULT) {
             List<CompileUnit> newChild = new ArrayList<>(childUnit);
             CompileUnit newLayer = new CompileUnit("MulExp", newChild, CompileUnit.Type.MulExp, false);
             childUnit.clear();
             childUnit.add(newLayer);
             childUnit.add(endUnitBuilder(tokenPackage,
-                    new HashSet<>(Arrays.asList(Token.Type.MULT, Token.Type.DIV, Token.Type.MOD))));
+                    new HashSet<>(Arrays.asList(Token.Type.MULT, Token.Type.DIV, Token.Type.MOD,Token.Type.MATMULT, Token.Type.MATDOTMULT))));
             childUnit.add(parseUnaryExp(tokenPackage));
         }
         return new CompileUnit("MulExp", childUnit, CompileUnit.Type.MulExp, false);

@@ -10,6 +10,7 @@ import java.util.Map;
 public class BinaryExpNode extends ExprNode {
     public enum BinaryOp {
         ADD, SUB, MUL, DIV, MOD,
+        MATADD, MATSUB, MATMUL, MATDOTMUL,
         LEQ, GEQ, EQL, NEQ,
         AND, OR, LSS, GRE
     }
@@ -21,6 +22,10 @@ public class BinaryExpNode extends ExprNode {
             put(CompileUnit.Type.MULT, BinaryOp.MUL);
             put(CompileUnit.Type.DIV, BinaryOp.DIV);
             put(CompileUnit.Type.MOD, BinaryOp.MOD);
+            put(CompileUnit.Type.MATPLUS, BinaryOp.MATADD);
+            put(CompileUnit.Type.MATMINU, BinaryOp.MATSUB);
+            put(CompileUnit.Type.MATMULT, BinaryOp.MATMUL);
+            put(CompileUnit.Type.MATDOTMULT, BinaryOp.MATDOTMUL);
             put(CompileUnit.Type.LEQ, BinaryOp.LEQ);
             put(CompileUnit.Type.GEQ, BinaryOp.GEQ);
             put(CompileUnit.Type.EQL, BinaryOp.EQL);

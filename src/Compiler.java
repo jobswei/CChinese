@@ -161,7 +161,7 @@ public class Compiler {
 
     public static void main(String[] args) throws Exception {
 
-        optimizeTest("testfile.txt", "output.txt");
+        optimizeTest("testfiles/testfile1.txt", "output.txt");
 
     }
 }

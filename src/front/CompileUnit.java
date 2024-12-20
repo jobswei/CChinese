@@ -27,6 +27,7 @@ public class CompileUnit {
         SINGLECOMMENT, MULTICOMMENT,
         PLUS, MINU,
         MULT, DIV, MOD,
+        MATPLUS, MATMINU, MATMULT, MATDOTMULT,
         LEQ, GEQ, EQL, NEQ,
         AND, OR,
         NOT, LSS, GRE, ASSIGN,

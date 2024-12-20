@@ -39,6 +39,10 @@ public class Lexer {
 
     public static Map<String, Token.Type> singleCharTk = new HashMap<String, Token.Type>() {
         {
+            put("$", Token.Type.MATPLUS);
+            put("^", Token.Type.MATMINU);
+            put("#", Token.Type.MATMULT);
+            put("@", Token.Type.MATDOTMULT);
             put("+", Token.Type.PLUS);
             put("-", Token.Type.MINU);
             put("*", Token.Type.MULT);
@@ -62,7 +66,16 @@ public class Lexer {
         int cntLine = 1;
         lab:
         while (matcher.find()) {
+            int cnt = 0;
             for (Token.Type t : Token.Type.values()) {
+                if (matcher.group(t.toString()) != null) {
+                    cnt += 1;
+                }
+            }
+            if (cnt == 0){
+                int a = 1;
+            }
+                for (Token.Type t : Token.Type.values()) {
                 if (matcher.group(t.toString()) != null) {
                     String stringInfo = matcher.group(t.toString());
                     cntLine += stringInfo.chars().boxed().filter(ch -> ch == '\n').count();
@@ -75,7 +88,7 @@ public class Lexer {
             throw new Exception("Illegal");
         }
         return tokens;
-    }
+}
 
     public static List<Token> tokenizeAutomata(String sourceCode) throws Exception {
         final List<Token> tokens = new LinkedList<>();
@@ -91,10 +104,10 @@ public class Lexer {
     public static String uncomment(String sourceCode) {
         StringBuilder sb = new StringBuilder(sourceCode);
         for (int i = 0; i < sourceCode.length(); ) {
-            if (sourceCode.charAt(i) == '"') {
+            if (sourceCode.charAt(i) == '"'|| sourceCode.charAt(i) == '“' ) {
                 do {
                     i += 1;
-                } while (sourceCode.charAt(i) != '"');
+                } while (sourceCode.charAt(i) != '"' || sourceCode.charAt(i) == '”');
                 i += 1;
             } else if (sourceCode.charAt(i) == '/' &&
                     i + 1 < sourceCode.length() &&
@@ -155,11 +168,11 @@ public class Lexer {
                 position += 1;
             } while (Character.isDigit(sourceCode.charAt(position)));
             return new Token(line, Token.Type.INTCON, stringBuilder.toString());
-        } else if (sourceCode.charAt(position) == '"') {
+        } else if (sourceCode.charAt(position) == '"' || sourceCode.charAt(position) == '“' ) {
             do {
                 stringBuilder.append(String.valueOf(sourceCode.charAt(position)));
                 position += 1;
-            } while (sourceCode.charAt(position) != '"');
+            } while (sourceCode.charAt(position) != '"' || sourceCode.charAt(position) == '”' );
             stringBuilder.append(sourceCode.charAt(position));
             position += 1;
             return new Token(line, Token.Type.STRCON, stringBuilder.toString());

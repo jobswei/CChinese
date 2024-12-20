@@ -446,7 +446,7 @@ public class MidCodeGenerator {
 
     public static void printfNodeToIr(PrintfNode printfNode) {
         String formatString = printfNode.formatString();
-        List<String> formatStrings = Arrays.stream((formatString.split("(?<=%d)|(?=%d)")))
+        List<String> formatStrings = Arrays.stream((formatString.split("(?<=%d)|(?<=%整)|(?=%d)|(?=%整)")))
                 .collect(Collectors.toList());
         int putIntCnt = 0;
         List<ExprNode> args = printfNode.args();
@@ -455,7 +455,7 @@ public class MidCodeGenerator {
             results.add(expNodeToIr(arg.simplify(currentTable)));
         }
         for (String string : formatStrings) {
-            if (!string.equals("%d")) {
+            if (!string.equals("%d") && !string.equals("%整")) {
                 String label = StringCounter.findString(string);
                 currentBasicBlock.addAfter(new PrintStr(label, string));
             } else {

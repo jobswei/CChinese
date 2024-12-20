@@ -99,7 +99,13 @@ public class SemanticChecker {
         final CompileUnit.Type funcType = compileUnit.type() == CompileUnit.Type.FuncDef ?
                 childUnits.get(0).childUnits().get(0).type() :
                 childUnits.get(0).type();
-        final String funcName = childUnits.get(1).name();
+        String temp_name = "";
+        if (childUnits.get(1).name().equals("主函数")){
+            temp_name = "main";
+        }else{
+            temp_name = childUnits.get(1).name();
+        }
+        final String funcName = temp_name;
         final int line = childUnits.get(1).lineNo();
         List<FuncParamNode> funcParamNodes = new ArrayList<>();
         if (childUnits.get(3).type() == CompileUnit.Type.FuncFParams) {

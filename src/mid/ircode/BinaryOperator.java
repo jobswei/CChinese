@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class BinaryOperator extends InstructionLinkNode {
     public enum Op {
-        ADD, SUB, MULT, DIV, MOD, EQL, GEQ, GRE, LEQ, LSS, NEQ
+        ADD, SUB, MULT, DIV, MOD, MATADD, MATSUB, MATMULT, MATDOTMULT,EQL, GEQ, GRE, LEQ, LSS, NEQ
     }
 
     private static final Map<BinaryExpNode.BinaryOp, Op> OP_2_OP = new HashMap<BinaryExpNode.BinaryOp, Op>() {
@@ -20,6 +20,10 @@ public class BinaryOperator extends InstructionLinkNode {
             put(BinaryExpNode.BinaryOp.MUL, Op.MULT);
             put(BinaryExpNode.BinaryOp.DIV, Op.DIV);
             put(BinaryExpNode.BinaryOp.MOD, Op.MOD);
+            put(BinaryExpNode.BinaryOp.MATADD, Op.MATADD);
+            put(BinaryExpNode.BinaryOp.MATSUB, Op.MATSUB);
+            put(BinaryExpNode.BinaryOp.MATMUL, Op.MATMULT);
+            put(BinaryExpNode.BinaryOp.MATDOTMUL, Op.MATDOTMULT);
             put(BinaryExpNode.BinaryOp.EQL, Op.EQL);
             put(BinaryExpNode.BinaryOp.GEQ, Op.GEQ);
             put(BinaryExpNode.BinaryOp.GRE, Op.GRE);
@@ -36,6 +40,10 @@ public class BinaryOperator extends InstructionLinkNode {
             put(Op.MULT, "mul");
             put(Op.DIV, "sdiv");
             put(Op.MOD, "srem");
+            put(Op.MATADD, "matadd");
+            put(Op.MATSUB, "matsub");
+            put(Op.MATMULT, "matmul");
+            put(Op.MATDOTMULT, "matdotmul");
             put(Op.EQL, "eq");
             put(Op.NEQ, "ne");
             put(Op.GRE, "sgt");
@@ -94,6 +102,12 @@ public class BinaryOperator extends InstructionLinkNode {
                         + TableEntry.TO_IR.get(dst.valueType) + " " +
                         src1.toNameIr() + ", " +
                         src2.toNameIr();
+            case MATADD:
+            case MATSUB:
+            case MATMULT:
+            case MATDOTMULT:
+                return "\t"+"LHYLHY";
+
             case NEQ:
             case LSS:
             case LEQ:
