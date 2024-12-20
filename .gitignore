@@ -392,12 +392,12 @@ translations/*.qm
 
 ### Images template
 # JPEG
-*.jpg
-*.jpeg
-*.jpe
-*.jif
-*.jfif
-*.jfi
+#*.jpg
+#*.jpeg
+#*.jpe
+#*.jif
+#*.jfif
+#*.jfi
 
 # JPEG 2000
 *.jp2
