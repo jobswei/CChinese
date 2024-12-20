@@ -5,7 +5,7 @@ with Chinese and English Language
 Programming
 
 <div align=center>
-<img src="figs/logo.jpg" width = 50%>  
+<img src="./figs/logo.jpg" width = 50%>  
 </div>
 
 
